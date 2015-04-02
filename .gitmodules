@@ -1,3 +1,4 @@
 [submodule "hangupsbot"]
 	path = hangupsbot
 	url = https://github.com/nylonee/hangupsbot.git
+	ignore = dirty
