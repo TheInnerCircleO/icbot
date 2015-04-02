@@ -1,6 +1,7 @@
 import datetime
 import hangups
-import random
+
+from random import randint
 
 
 def dilbert(bot, event, *args):
