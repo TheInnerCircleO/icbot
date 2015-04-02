@@ -26,14 +26,21 @@ function usageLong() {
 
 	OPTIONS:
 
-	    -c, --config    Path to config file
+	    -c, --config    Config storage path
 	    -h, --help      Print this help dialogue
+	    -k, --cookies   Cookies storage path
+	    -l, --log       Log file path
+	    -m, --memory    Memory storage path
 
 	Examples:
 
 	    Run bot with a specific config file
 
 	        ./run.sh --config path/to/config.json
+
+	     Run bot with a specific memory and cookie files
+
+	        ./run.sh --memory path/to/memory.json --cookies path/to/cookies.json
 	EOF
 
 }
@@ -43,7 +50,7 @@ function usageLong() {
 ########################################
 
 ### Parse options with getopt
-PARSED_OPTIONS=$(getopt -n "${0}" -o c:h -l "config:,help" -- "$@")
+PARSED_OPTIONS=$(getopt -n "${0}" -o c:k:hl:m: -l "config:,cookies:,help,log:,memory:" -- "$@")
 
 ## Evaluate parsed options
 eval set -- "${PARSED_OPTIONS}"
@@ -57,11 +64,16 @@ while true; do
             shift
 
             ## Set config argument
-            if [[ -r ${1} ]]; then
-                CONFIG_ARG="--config ${1}"; shift
-            else
-                echo "ERROR: Config file does not exist "; exit 1
-            fi
+            CONFIG_ARG="--config ${1}"; shift
+
+        ;;
+
+        -k|-cookies)
+
+            shift
+
+            ## Set cookie argument
+            COOKIE_ARG="--cookies ${1}"; shift
 
         ;;
 
@@ -69,6 +81,24 @@ while true; do
 
             ## Display usage info
             usageLong; exit
+
+        ;;
+
+        -l|--log)
+
+            shift
+
+            ## Set log argument
+            LOG_ARG="--log ${1}"; shift
+
+        ;;
+
+        -m|--memory)
+
+            shift
+
+            ## Set memory argument
+            MEMORY_ARG="--memory ${1}"; shift
 
         ;;
 
@@ -118,17 +148,19 @@ function createSymlinks() {
 
     done
 
-    if [[ -z "${CONFIG_PATH}" ]]; then
-        CONFIG_PATH="${HOME}/.local/share/hangupsbot/config.json"
-    fi
-
 }
 
 
 function runHangupsbot() {
 
     ## Run the hangupsbot
-    python3 ${SCRIPT_DIR}/hangupsbot/hangupsbot/hangupsbot.py ${CONFIG_ARG}
+    python3 ${SCRIPT_DIR}/hangupsbot/hangupsbot/hangupsbot.py \
+        ${CONFIG_ARG} \
+        ${COOKIE_ARG} \
+        ${LOG_ARG} \
+        ${MEMORY_ARG}
+
+
 
 }
 
