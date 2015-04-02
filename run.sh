@@ -18,4 +18,4 @@ for PLUGIN in ${OUR_PLUGINS_DIR}/*; do
 done
 
 ## Run the bot
-python3 ${SCRIPT_PATH}/hangupsbot/hangupsbot/hangupsbot.py --config ${SCRIPT_PATH}/icbot-config.json
+python3 ${SCRIPT_PATH}/hangupsbot/hangupsbot/hangupsbot.py
