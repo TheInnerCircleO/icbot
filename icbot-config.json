@@ -1,0 +1,98 @@
+{
+  "admins": [
+    "117719264252178167579",
+    "109541384316465743900",
+    "110181089778242180313",
+    "110422048111950594964",
+    "106933377919427088457"
+  ],
+  "autoreplies": [
+    [
+      [
+        "hi bot",
+        "hello bot"
+      ],
+      "Hello world!"
+    ]
+  ],
+  "cleverbot_percentage_replies": "2",
+  "commands_admin": [
+    "rename",
+    "leave",
+    "easteregg",
+    "user",
+    "users",
+    "hangouts",
+    "reload",
+    "quit",
+    "config",
+    "topic"
+  ],
+  "commands_enabled": true,
+  "conversations": {
+    "CONV2_ID": {
+      "autoreplies_enabled": false,
+      "commands_enabled": false,
+      "mentionall": false,
+      "mentionallwhitelist": []
+    }
+  },
+  "hooks": [
+    {
+      "config": {
+        "storage_path": false
+      },
+      "module": "hooks.chatlogger.writer.logger"
+    }
+  ],
+  "jsonrpc": [
+    {
+      "certfile": null,
+      "module": "sinks.generic.simpledemo.webhookReceiver",
+      "name": "127.0.0.1",
+      "port": 9001
+    },
+    {
+      "certfile": null,
+      "module": "sinks.gitlab.simplepush.webhookReceiver",
+      "name": "",
+      "port": 8000
+    },
+    {
+      "certfile": null,
+      "module": "sinks.github.simplepush.webhookReceiver",
+      "name": "",
+      "port": 8001
+    },
+    {
+      "certfile": null,
+      "module": "sinks.hubotreceive.post.receiver",
+      "name": "127.0.0.1",
+      "port": 8081
+    },
+    {
+      "certfile": null,
+      "module": "sinks.google.scripts.webhookReceiver",
+      "name": "127.0.0.1",
+      "port": 8002
+    }
+  ],
+  "mentionall": true,
+  "mentionallwhitelist": [],
+  "mentionerrors": true,
+  "mentionquidproquo": false,
+  "plugins": null,
+  "pushbullet": {},
+  "spreadsheet_enabled": false,
+  "spreadsheet_table_class": "waffle",
+  "spreadsheet_url": "INSERT_PUBLIC_URL_OF_GSHEET_HERE",
+  "strict_botkeeper_check": false,
+  "sync_rooms": [
+    [
+      "CONV1_ID",
+      "CONV2_ID"
+    ],
+    []
+  ],
+  "syncing_enabled": false
+}
