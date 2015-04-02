@@ -25,7 +25,7 @@ def get_json(url):
 def prs(bot, event, *args):
 
     prs = get_json(
-        'https://api.github.com/repos/TheInnerCircleO/hangupsbot/pulls'
+        'https://api.github.com/repos/TheInnerCircleO/icbot/pulls'
     )
 
     if not prs:
