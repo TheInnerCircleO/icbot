@@ -160,8 +160,6 @@ function runHangupsbot() {
         ${LOG_ARG} \
         ${MEMORY_ARG}
 
-
-
 }
 
 
