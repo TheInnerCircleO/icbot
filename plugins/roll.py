@@ -3,6 +3,7 @@ import re
 
 from random import randint
 
+
 def roll(bot, event, *args):
     """
     /bot roll [ 2d6 | 1d10 | etc ]
