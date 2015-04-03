@@ -1,2 +1,2 @@
 .tox/
-ICBot_Plugins.egg-info/
+*.egg-info/
