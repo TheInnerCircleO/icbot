@@ -66,7 +66,7 @@ def ogs(bot, event, *args):
         count = int_val(args[0])
     else:
         count = 10
-    #Cant explain 240 min offset
+    # Cant explain 240 min offset
     past_date = ((datetime.datetime.utcnow() -
                   datetime.timedelta(minutes=60+240)).strftime(
         "%Y-%m-%dT%H:%M:%S"))
@@ -81,7 +81,7 @@ def ogs(bot, event, *args):
                               "%Y-%m-%dT%H:%M:%S"), reverse=True)
     max_games = min(len(sorted_games), count)
     segments = []
-    for game in sorted_games[0:max_games]:
+    for game in sorted_games:
         now = (datetime.datetime.utcnow())
         game_time = datetime.datetime.strptime(game['started'][0:18],
                                                "%Y-%m-%dT%H:%M:%S")
@@ -102,7 +102,7 @@ def ogs(bot, event, *args):
             if wrank >= 20 and brank >= 20:
                 wrank = ogs_rank_string(wrank)
                 brank = ogs_rank_string(brank)
-                title = ''.join([wname,"[", str(wrank), "] vs ", bname,
+                title = ''.join([wname, "[", str(wrank), "] vs ", bname,
                                 "[", str(brank), "] ", str(age), " Min"])
                 link = ''.join(['https://online-go.com/game/',
                                str(game['id'])])
@@ -112,4 +112,4 @@ def ogs(bot, event, *args):
                 segments.append(hangups.ChatMessageSegment('\n',
                                 hangups.SegmentType.LINE_BREAK))
 
-    bot.send_message_segments(event.conv, segments)
+    bot.send_message_segments(event.conv, segments[0:max_games*2])
