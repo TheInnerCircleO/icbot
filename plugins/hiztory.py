@@ -29,7 +29,6 @@ def hiztory(bot, event, *args):
 
     else:
 
-        ## Pick random cagegory
         category = 'events'
 
     url = 'http://api.hiztory.org/{}/{}/{}/1/15/api.xml'.format(
