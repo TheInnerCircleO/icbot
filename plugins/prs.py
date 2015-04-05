@@ -67,4 +67,4 @@ def prs(bot, event, *args):
             )
         )
 
-    bot.send_message_parsed(event.conv, segments)
+    bot.send_message_segments(event.conv, segments)
