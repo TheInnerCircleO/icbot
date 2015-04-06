@@ -25,7 +25,7 @@ First cd to the project's root dir:
 
 Set up and activate your virtual environment:
 
-    virtualenv .venv
+    virtualenv -p /usr/bin/python3 .venv
     source .venv/bin/activate
 
 
