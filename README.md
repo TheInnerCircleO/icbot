@@ -31,7 +31,7 @@ Set up and activate your virtual environment:
 
 Install requirements:
 
-    sudo pip3 install -r hangupsbot/requirements.txt
+    pip3 install -r hangupsbot/requirements.txt
 
 
 ### Running the bot
