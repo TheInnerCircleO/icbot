@@ -9,11 +9,29 @@ Chat bot for The Inner Circle Google Hangouts chat.
     git clone --recursive git@github.com:TheInnerCircleO/icbot.git
 
 
-### Installing dependencies
+### Prerequisites
 
-From the project's root directory run:
+Install prerequisites:
 
-    sudo pip3 install -r hangupsbot/requirements.txt
+    sudo apt-get install python3 pyhton3-pip python-virtualenv
+
+
+### Installing requirements
+
+First cd to the project's root dir:
+
+    cd path/to/icbot
+
+
+Set up and activate your virtual environment:
+
+    virtualenv -p /usr/bin/python3 .venv
+    source .venv/bin/activate
+
+
+Install requirements:
+
+    pip3 install -r hangupsbot/requirements.txt
 
 
 ### Running the bot
