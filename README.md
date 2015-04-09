@@ -13,7 +13,7 @@ Chat bot for The Inner Circle Google Hangouts chat.
 
 Install prerequisites:
 
-    sudo apt-get install python3 pyhton3-pip python-virtualenv
+    sudo apt-get install python3 python3-pip python-virtualenv
 
 
 ### Installing requirements
