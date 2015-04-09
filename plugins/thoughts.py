@@ -34,7 +34,7 @@ def thoughts(bot, event, *args):
         bot.send_message(event.conv, 'Hmmm.')
         return
 
-    rand_index = randint(0, min([total_results, 8]))
+    rand_index = randint(0, min([total_results, 5]))
 
     topic = results_obj['data']['children'][rand_index]
 
