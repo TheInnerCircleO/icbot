@@ -1,8 +1,8 @@
 import requests
 import time
+import xml.etree.ElementTree as ET
 
 from datetime import datetime
-from lxml import objectify
 from random import randint
 
 
@@ -46,16 +46,17 @@ def hiztory(bot, event, *args):
 
         return
 
-    hiztory_obj = objectify.fromstring(xml.text)
+    root = ET.fromstring(xml.text)
+    events = list(root.find('events').iter('event'))
 
-    index = randint(0, len(hiztory_obj.events.event) - 1)
+    index = randint(0, len(events) - 1)
 
     year = datetime.strptime(
-        hiztory_obj.events.event[index].get('date'),
+        events[index].attrib['date'],
         '%Y-%m-%d'
     ).strftime('%Y')
 
-    message = hiztory_obj.events.event[index].get('content')
+    message = events[index].attrib['content']
 
     bot.send_message_parsed(
         event.conv,
