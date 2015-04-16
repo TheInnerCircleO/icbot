@@ -13,7 +13,8 @@ def thoughts(bot, event, *args):
     query_string = parse.quote_plus(' '.join(args))
 
     results = requests.get(
-        'http://www.reddit.com/search.json?q={}'.format(query_string)
+        'http://www.reddit.com/search.json?q={}'.format(query_string),
+        headers={'User-Agent': 'icbot v360.N0.SC0P3'}
     )
 
     if results.status_code != 200:
