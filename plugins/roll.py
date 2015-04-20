@@ -21,7 +21,7 @@ def roll(bot, event, *args):
 
         segments.append(
             hangups.ChatMessageSegment(
-                'Rolling {}: '.format(arg),
+                '{} rolled {}: '.format(event.user.first_name, arg),
                 is_bold=True
             )
         )
