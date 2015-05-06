@@ -12,7 +12,7 @@ def busy(bot, event, *args):
         'generating', 'indexing', 'initializing', 'mapping',
         'multiplexing', 'parsing', 'prioritizing', 'reordering',
         'resolving', 'reticulating', 'routing', 'sorting',
-        'transcoding', 'upgrading'
+        'transcoding', 'upgrading', 'unravelling'
     ]
 
     adjectives = [
@@ -22,13 +22,13 @@ def busy(bot, event, *args):
         'finite', 'high-level', 'infinie', 'inverse',
         'linked', 'low-level', 'multi-dimensional', 'negative',
         'non-euclidean', 'positive', 'prallel', 'quantifiable',
-        'random', 'sentient', 'sub-zero', 'tertiary',
+        'random', 'sentient', 'static', 'sub-zero', 'tertiary',
         'unlinked', 'unusual', 'well-documented', 'vectorized',
         '' # Intentionally blank
     ]
 
     nouns = [
-        'archives', 'arrays', 'caches', 'coprocesses',
+        'algorithms', 'archives', 'arrays', 'caches', 'coprocesses',
         'cores', 'datasets', 'fields', 'frames',
         'functions', 'datastores', 'lists', 'matrices',
         'objects', 'procedures', 'processes', 'queues',
