@@ -24,7 +24,7 @@ def busy(bot, event, *args):
         'non-euclidean', 'positive', 'prallel', 'quantifiable',
         'random', 'sentient', 'static', 'sub-zero', 'tertiary',
         'unlinked', 'unusual', 'well-documented', 'vectorized',
-        '' # Intentionally blank
+        ''  # Intentionally blank
     ]
 
     nouns = [
@@ -43,7 +43,4 @@ def busy(bot, event, *args):
         choice(nouns)
     )
 
-    bot.send_message(
-        event.conv,
-        sub(' +', ' ', message)
-    )
+    bot.send_message(event.conv, sub(' +', ' ', message))
