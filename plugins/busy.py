@@ -19,7 +19,7 @@ def busy(bot, event, *args):
         'active', 'associative', 'bi-directional', 'corrupt',
         'complex', 'cybernetic', 'dank', 'deterministic',
         'duplicate', 'dynamic', 'ethereal', 'euclidean',
-        'finite', 'high-level', 'infinie', 'inverse',
+        'finite', 'high-level', 'infinite', 'inverse',
         'linked', 'low-level', 'multi-dimensional', 'negative',
         'non-euclidean', 'positive', 'prallel', 'quantifiable',
         'random', 'sentient', 'static', 'sub-zero', 'tertiary',
