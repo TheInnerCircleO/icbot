@@ -8,12 +8,17 @@ import requests
 from random import choice
 from urllib import parse
 
+
+_conf = dict()
+
+
 def _initialise(bot):
 
     giphy_api_key = bot.get_config_option("giphy-apikey")
 
     if giphy_api_key:
         plugins.register_user_command(['giphy'])
+        _conf['giphy_api_key'] = giphy_api_key
     else:
         print(_("GIPHY: config.giphy-apikey required"))
 
@@ -25,12 +30,10 @@ def giphy(bot, event, *args):
         bot.send_message(event.conv, 'What are you looking for?')
         return
 
-    giphy_api_key = bot.get_config_option("giphy-apikey")
-
     results = requests.get(
         '{search_url}?api_key={api_key}&q={query}'.format(
             search_url='https://api.giphy.com/v1/gifs/search',
-            api_key=giphy_api_key,
+            api_key=_conf['giphy_api_key'],
             query=parse.quote_plus(' '.join(args))
         ),
         headers={'User-Agent': 'icbot v360.N0.SC0P3'}
