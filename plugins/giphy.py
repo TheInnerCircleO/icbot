@@ -50,6 +50,17 @@ def giphy(bot, event, *args):
 
     results_obj = json.loads(results.text)
 
+    if len(results_obj['data']) == 0:
+
+        bot.send_message(
+            event.conv,
+            'I couldn\'t find anything when looking for "{}"'.format(
+                ' '.join(args)
+            )
+        )
+
+        return
+
     gif = choice(results_obj['data'])
 
     image = gif['images']['downsized']['url']
