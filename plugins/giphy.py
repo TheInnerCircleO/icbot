@@ -33,11 +33,11 @@ def giphy(bot, event, *args):
 
         return
 
-    results_obj = json.loads(results.text)['data']
+    results_obj = json.loads(results.text)
 
-    gif = choice(results_obj)
+    gif = choice(results_obj['data'])
 
-    image = gif['images']['downsized_large']['url']
+    image = gif['images']['downsized']['url']
 
     filename = os.path.basename(image)
     r = yield from aiohttp.request('get', image)
@@ -49,4 +49,4 @@ def giphy(bot, event, *args):
         filename=filename
     )
 
-    bot.send_message_segments(event.conv.id_, None, image_id=image_id)
+    bot.send_message_segments(event.conv, None, image_id=image_id)
