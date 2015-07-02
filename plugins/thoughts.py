@@ -1,19 +1,23 @@
-import hangups
 import json
 import re
 import requests
 
-from random import randint
+from random import choice
 from urllib import parse
 
 
 def thoughts(bot, event, *args):
-    """/bot thoughts [subject]"""
+    """/bot thoughts [subject]
+    Probe the bot's mind on a subject."""
 
-    query_string = parse.quote_plus(' '.join(args))
+    if not args:
+        bot.send_message(event.conv, 'Wut?')
+        return
 
     results = requests.get(
-        'http://www.reddit.com/search.json?q={}'.format(query_string),
+        'https://api.reddit.com/search/?q={query}&limit=5'.format(
+            query=parse.quote_plus(' '.join(args))
+        ),
         headers={'User-Agent': 'icbot v360.N0.SC0P3'}
     )
 
@@ -28,16 +32,12 @@ def thoughts(bot, event, *args):
 
     results_obj = json.loads(results.text)
 
-    total_results = len(results_obj['data']['children']) - 1
-
-    if total_results == 0:
+    if not results_obj['data']['children']:
 
         bot.send_message(event.conv, 'Hmmm.')
         return
 
-    rand_index = randint(0, min([total_results, 5]))
-
-    topic = results_obj['data']['children'][rand_index]
+    topic = choice(results_obj['data']['children'])
 
     rerep = re.compile(re.escape('reddit'), re.IGNORECASE)
 
@@ -46,14 +46,4 @@ def thoughts(bot, event, *args):
         topic['data']['title']
     )
 
-    link = 'https://www.reddit.com{}'.format(topic['data']['permalink'])
-
-    segments = [
-        hangups.ChatMessageSegment(
-            title,
-            hangups.SegmentType.LINK,
-            link_target=link
-        )
-    ]
-
-    bot.send_message_segments(event.conv, segments)
+    bot.send_message(event.conv, title)
