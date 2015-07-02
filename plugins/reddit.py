@@ -1,18 +1,17 @@
 import hangups
 import json
-import re
 import requests
 
 from random import choice
 from urllib import parse
 
 
-def thoughts(bot, event, *args):
-    """/bot thoughts [subject]
-    Probe the bot's mind on a subject."""
+def reddit(bot, event, *args):
+    """/bot reddit [query]
+    Search and return a random topic relating to your query."""
 
     results = requests.get(
-        'https://api.reddit.com/search/?q={query}&limit=5'.format(
+        'https://api.reddit.com/search/?q={query}&limit=10'.format(
             query=parse.quote_plus(' '.join(args))
         ),
         headers={'User-Agent': 'icbot v360.N0.SC0P3'}
@@ -36,13 +35,6 @@ def thoughts(bot, event, *args):
 
     topic = choice(results_obj['data']['children'])
 
-    rerep = re.compile(re.escape('reddit'), re.IGNORECASE)
-
-    title = rerep.sub(
-        'The Inner Circle',
-        topic['data']['title']
-    )
-
     short_link = 'http://redd.it/{id}'.format(id=topic['data']['id'])
 
     segments = list()
@@ -54,7 +46,7 @@ def thoughts(bot, event, *args):
         )
 
     segments.append(
-        hangups.ChatMessageSegment(title)
+        hangups.ChatMessageSegment(topic['data']['title'])
     )
 
     segments.append(
@@ -70,5 +62,3 @@ def thoughts(bot, event, *args):
     )
 
     bot.send_message_segments(event.conv, segments)
-
-    bot.parse_and_se
