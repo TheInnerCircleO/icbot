@@ -62,5 +62,3 @@ def reddit(bot, event, *args):
     )
 
     bot.send_message_segments(event.conv, segments)
-
-    bot.parse_and_se
