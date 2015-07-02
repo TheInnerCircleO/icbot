@@ -1,4 +1,3 @@
-import hangups
 import json
 import re
 import requests
@@ -10,6 +9,10 @@ from urllib import parse
 def thoughts(bot, event, *args):
     """/bot thoughts [subject]
     Probe the bot's mind on a subject."""
+
+    if not args:
+        bot.send_message(event.conv, 'Wut?')
+        return
 
     results = requests.get(
         'https://api.reddit.com/search/?q={query}&limit=5'.format(
@@ -43,32 +46,4 @@ def thoughts(bot, event, *args):
         topic['data']['title']
     )
 
-    short_link = 'http://redd.it/{id}'.format(id=topic['data']['id'])
-
-    segments = list()
-
-    if topic['data']['over_18']:
-
-        segments.append(
-            hangups.ChatMessageSegment('[NSFW] ', is_bold=True)
-        )
-
-    segments.append(
-        hangups.ChatMessageSegment(title)
-    )
-
-    segments.append(
-        hangups.ChatMessageSegment('\n', hangups.SegmentType.LINE_BREAK)
-    )
-
-    segments.append(
-        hangups.ChatMessageSegment(
-            '{link}'.format(link=short_link),
-            hangups.SegmentType.LINK,
-            link_target=short_link
-        )
-    )
-
-    bot.send_message_segments(event.conv, segments)
-
-    bot.parse_and_se
+    bot.send_message(event.conv, title)
