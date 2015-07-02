@@ -18,6 +18,13 @@ def _initialise(bot):
         print('PRS: config.pr_repos required')
 
 
+def _apend_newline(some_list):
+
+    some_list.append(
+        hangups.ChatMessageSegment('\n', hangups.SegmentType.LINE_BREAK)
+    )
+
+
 def prs(bot, event, *args):
 
     segments = list()
@@ -26,9 +33,7 @@ def prs(bot, event, *args):
         hangups.ChatMessageSegment('Open pull requests:', is_bold=True)
     )
 
-    segments.append(
-        hangups.ChatMessageSegment('\n', hangups.SegmentType.LINE_BREAK)
-    )
+    _apend_newline(segments)
 
     if args:
         repos = list(args)
@@ -37,9 +42,7 @@ def prs(bot, event, *args):
 
     for repo in repos:
 
-        segments.append(
-            hangups.ChatMessageSegment('\n', hangups.SegmentType.LINE_BREAK)
-        )
+        _apend_newline(segments)
 
         segments.append(
             hangups.ChatMessageSegment(
@@ -48,9 +51,7 @@ def prs(bot, event, *args):
             )
         )
 
-        segments.append(
-            hangups.ChatMessageSegment('\n', hangups.SegmentType.LINE_BREAK)
-        )
+        _apend_newline(segments)
 
         results = requests.get(
             'https://api.github.com/repos/{repo}/pulls'.format(repo=repo),
@@ -63,27 +64,19 @@ def prs(bot, event, *args):
 
             if not prs:
 
-                segments.append(
-                    hangups.ChatMessageSegment(
-                        '\n',
-                        hangups.SegmentType.LINE_BREAK
-                    )
-                )
+                _apend_newline(segments)
 
                 segments.append(
                     hangups.ChatMessageSegment('No open pull requests')
                 )
 
+                _apend_newline(segments)
+
             else:
 
                 for pr in prs:
 
-                    segments.append(
-                        hangups.ChatMessageSegment(
-                            '\n',
-                            hangups.SegmentType.LINE_BREAK
-                        )
-                    )
+                    _apend_newline(segments)
 
                     segments.append(
                         hangups.ChatMessageSegment('[{pr_number}] '.format(
@@ -109,21 +102,11 @@ def prs(bot, event, *args):
                         )
                     )
 
-                    segments.append(
-                        hangups.ChatMessageSegment(
-                            '\n',
-                            hangups.SegmentType.LINE_BREAK
-                        )
-                    )
+                    _apend_newline(segments)
 
         else:
 
-            segments.append(
-                hangups.ChatMessageSegment(
-                    '\n',
-                    hangups.SegmentType.LINE_BREAK
-                )
-            )
+            _apend_newline(segments)
 
             segments.append(
                 hangups.ChatMessageSegment(
@@ -133,8 +116,6 @@ def prs(bot, event, *args):
                 )
             )
 
-        segments.append(
-            hangups.ChatMessageSegment('\n', hangups.SegmentType.LINE_BREAK)
-        )
+            _apend_newline(segments)
 
     bot.send_message_segments(event.conv, segments)
