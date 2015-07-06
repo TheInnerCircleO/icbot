@@ -1,70 +1,121 @@
 import hangups
 import json
+import plugins
 import requests
 
 
-def get_json(url):
-    """
-    TODO: Make this act sane when bad status_code or an Exception is thrown
-    Grabs json from a URL and returns a python dict
-    """
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; \
-               rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11'}
+_conf = dict()
 
-    json_result = requests.get(url, headers=headers)
-    if json_result.status_code == 200:
-        try:
-            obj_result = json.loads(json_result.text)
-            return obj_result
-        except Exception as e:
-            return e
+
+def _initialise(bot):
+
+    pr_repos = bot.get_config_option('pr_repos')
+
+    if pr_repos:
+        plugins.register_user_command(['prs'])
+        _conf['pr_repos'] = pr_repos
     else:
-        return json_result.status_code
+        print('PRS: config.pr_repos required')
+
+
+def _apend_newline(some_list):
+
+    some_list.append(
+        hangups.ChatMessageSegment('\n', hangups.SegmentType.LINE_BREAK)
+    )
 
 
 def prs(bot, event, *args):
 
-    prs = get_json(
-        'https://api.github.com/repos/TheInnerCircleO/icbot/pulls'
+    segments = list()
+
+    segments.append(
+        hangups.ChatMessageSegment('Open pull requests:', is_bold=True)
     )
 
-    if not prs:
-        bot.send_message(event.conv, 'No open pull requests')
-        return
+    _apend_newline(segments)
 
-    segments = [
-        hangups.ChatMessageSegment('Open pull requests:', is_bold=True)
-    ]
+    if args:
+        repos = list(args)
+    else:
+        repos = _conf['pr_repos']
 
-    for pr in prs:
-        segments.append(
-            hangups.ChatMessageSegment('\n', hangups.SegmentType.LINE_BREAK)
-        )
+    for repo in repos:
 
-        segments.append(
-            hangups.ChatMessageSegment('\n', hangups.SegmentType.LINE_BREAK)
-        )
-
-        segments.append(
-            hangups.ChatMessageSegment('[{}] '.format(pr['number']))
-        )
+        _apend_newline(segments)
 
         segments.append(
             hangups.ChatMessageSegment(
-                pr['title'],
-                hangups.SegmentType.LINK,
-                link_target=pr['html_url']
+                '{repo}:'.format(repo=repo),
+                is_bold=True
             )
         )
 
-        segments.append(hangups.ChatMessageSegment(' by '))
+        _apend_newline(segments)
 
-        segments.append(
-            hangups.ChatMessageSegment(
-                pr['user']['login'],
-                hangups.SegmentType.LINK,
-                link_target=pr['user']['url']
-            )
+        results = requests.get(
+            'https://api.github.com/repos/{repo}/pulls'.format(repo=repo),
+            headers={'User-Agent': 'icbot v360.N0.SC0P3'}
         )
+
+        if results.status_code == 200:
+
+            prs = json.loads(results.text)
+
+            if not prs:
+
+                _apend_newline(segments)
+
+                segments.append(
+                    hangups.ChatMessageSegment('No open pull requests')
+                )
+
+                _apend_newline(segments)
+
+            else:
+
+                for pr in prs:
+
+                    _apend_newline(segments)
+
+                    segments.append(
+                        hangups.ChatMessageSegment('[{pr_number}] '.format(
+                            pr_number=pr['number']
+                        ))
+                    )
+
+                    segments.append(
+                        hangups.ChatMessageSegment(
+                            pr['title'],
+                            hangups.SegmentType.LINK,
+                            link_target=pr['html_url']
+                        )
+                    )
+
+                    segments.append(hangups.ChatMessageSegment(' by '))
+
+                    segments.append(
+                        hangups.ChatMessageSegment(
+                            pr['user']['login'],
+                            hangups.SegmentType.LINK,
+                            link_target=pr['user']['url']
+                        )
+                    )
+
+                    _apend_newline(segments)
+
+        else:
+
+            _apend_newline(segments)
+
+            segments.append(
+                hangups.ChatMessageSegment(
+                    'Server returned HTTP status code: {status_code}'.format(
+                        status_code=results.status_code
+                    )
+                )
+            )
+
+            _apend_newline(segments)
 
     bot.send_message_segments(event.conv, segments)
