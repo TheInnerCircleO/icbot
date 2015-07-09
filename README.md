@@ -36,7 +36,7 @@ Install requirements:
 
 Install testing requirements:
 
-    pip3 install --upgrade -r test-requirements.txt
+    pip3 install --upgrade tox -r test-requirements.txt
 
 
 ### Running the bot
