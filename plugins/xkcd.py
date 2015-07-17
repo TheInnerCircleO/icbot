@@ -1,4 +1,8 @@
+import aiohttp
+import hangups
+import io
 import json
+import os
 import requests
 
 from random import randint
@@ -56,10 +60,36 @@ def xkcd(bot, event, *args):
             bot.send_message(event.conv, 'ERROR: Invalid argument')
             return
 
-    bot.send_message_parsed(
-        event.conv,
-        '{title}: https://xkcd.com/{num}'.format(
-            title=xkcd_obj['safe_title'],
-            num=xkcd_obj['num']
+    segments = [
+        hangups.ChatMessageSegment(xkcd_obj['safe_title'], is_bold=True)
+    ]
+
+    segments.append(
+        hangups.ChatMessageSegment(' - ')
+    )
+
+    segments.append(
+        hangups.ChatMessageSegment(xkcd_obj['alt'], is_italic=True)
+    )
+
+    segments.append(hangups.ChatMessageSegment(' '))
+
+    url = 'https://xkcd.com/{num}'.format(num=xkcd_obj['num'])
+
+    segments.append(
+        hangups.ChatMessageSegment(
+            url,
+            hangups.SegmentType.LINK,
+            link_target=url
         )
     )
+
+    r = yield from aiohttp.request('get', xkcd_obj['img'])
+    raw = yield from r.read()
+
+    image_id = yield from bot._client.upload_image(
+        io.BytesIO(raw),
+        filename=os.path.basename(xkcd_obj['img'])
+    )
+
+    bot.send_message_segments(event.conv, segments, image_id=image_id)
