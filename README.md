@@ -34,6 +34,11 @@ Install requirements:
     pip3 install --upgrade -r requirements.txt -r hangupsbot/requirements.txt
 
 
+Install testing requirements:
+
+    pip3 install --upgrade tox -r test-requirements.txt
+
+
 ### Running the bot
 
 Run the bot with defaults:

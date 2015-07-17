@@ -1,0 +1,10 @@
+language: python
+python:
+    - "3.4"
+
+# Install dependencies
+install:
+    - "pip install tox -r requirements.txt -r hangupsbot/requirements.txt"
+
+# Run tests
+script: tox
