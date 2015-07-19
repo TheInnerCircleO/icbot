@@ -139,7 +139,7 @@ function createSymlinks() {
         elif [[ -f "${BOT_PLUGINS_DIR}/${BASENAME}" ]]; then
             echo "[WARNING] Regular file with this name exists"
         else
-            if $(ln -s ${PLUGIN} ${BOT_PLUGINS_DIR}/${BASENAME}); then
+            if [[ $(pushd ${BOT_PLUGINS_DIR} && ln -s ../../../plugins/${BASENAME} && popd) ]]; then
                 echo "[NOTICE] Created symlink"
             else
                 echo "[ERROR] Failed to create symlink"
