@@ -74,7 +74,7 @@ Build a Docker image:
 
     docker build --force-rm --pull --tag phlak/icbot .
 
-Run the Docker iamge:
+Run the Docker image:
 
     docker run -d -v /local/config/dir:/root/.local/share/hangupsbot --restart=always --name icbot phlak/icbot
 
