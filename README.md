@@ -68,9 +68,19 @@ Usage:
             ./run.sh --memory path/to/memory.json --cookies path/to/cookies.json
 
 
+### Docker
+
+Build a Docker image:
+
+    docker build --force-rm --pull --tag phlak/icbot .
+
+Run the Docker iamge:
+
+    docker run -d -v /local/config/dir:/root/.local/share/hangupsbot --restart=always --name icbot phlak/icbot
+
 -----
 
-Copyright (c) 2015 The Inner Circle
+**Copyright (c) 2015 The Inner Circle <https://github.com/TheInnerCircleO>**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
