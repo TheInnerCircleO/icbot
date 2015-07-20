@@ -16,7 +16,11 @@ COPY ./ ${BOT_DIR}/
 RUN pip3 install --upgrade -r ${BOT_DIR}/requirements.txt -r ${BOT_DIR}/hangupsbot/requirements.txt
 
 ## Create config volume
-VOLUME ${HOME}/.local/share/hangupsbot
+VOLUME ${BOT_DIR}/config
 
 ## Default command
-CMD ${BOT_DIR}/run.sh
+CMD ${BOT_DIR}/run.sh \
+    --config ${BOT_DIR}/config/config.json \
+    --cookies ${BOT_DIR}/config/cookies.json \
+    --log ${BOT_DIR}/config/hangupsbot.log \
+    --memory ${BOT_DIR}/config/memory.json

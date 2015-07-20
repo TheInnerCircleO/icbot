@@ -76,7 +76,7 @@ Build a Docker image:
 
 Run the Docker image:
 
-    docker run -d -v /local/config/dir:/root/.local/share/hangupsbot --restart=always --name icbot theinnercircle/icbot
+    docker run -d -v /local/config/dir:/srv/icbot/config --restart=always --name icbot theinnercircle/icbot
 
 -----
 

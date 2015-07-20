@@ -68,7 +68,7 @@ while true; do
 
         ;;
 
-        -k|-cookies)
+        -k|--cookies)
 
             shift
 
