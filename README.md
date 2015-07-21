@@ -70,13 +70,24 @@ Usage:
 
 ### Docker
 
-Build a Docker image:
+**Build a Docker image**
+
+You can build an image locally for testing or running a bot. From the icbot
+directory run the following:
 
     docker build --force-rm --pull --tag theinnercircle/icbot .
 
-Run the Docker image:
+**First run & authentication**
 
-    docker run -d -v /local/config/dir:/srv/icbot/config --restart=always --name icbot theinnercircle/icbot
+The first time you run the bot you have to authenticate it manually.  To do
+this run the bot interactively and follow the instructions given:
+
+    docker run -it --rm -v /local/config/dir:/srv/icbot/config theinnercircle/icbot
+
+Once authenticated you can use `Ctrl + C` to kill the running container and run
+a daemonized instance of the bot image:
+
+    docker run -dt -v /local/config/dir:/srv/icbot/config --restart=always --name icbot theinnercircle/icbot
 
 -----
 
