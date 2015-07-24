@@ -3,7 +3,7 @@ python:
     - "3.4"
 
 # Docker testing
-sudo: required
+sudo: 9000
 dist: trusty
 
 # Install dependencies
@@ -11,4 +11,4 @@ install:
     - "pip3 install --upgrade tox -r test-requirements.txt"
 
 # Run tests
-script: test.sh
+script: ./test.sh
