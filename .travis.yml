@@ -2,9 +2,13 @@ language: python
 python:
     - "3.4"
 
+# Docker testing
+sudo: required
+dist: trusty
+
 # Install dependencies
 install:
     - "pip install tox -r requirements.txt -r hangupsbot/requirements.txt"
 
 # Run tests
-script: tox
+script: test.sh
