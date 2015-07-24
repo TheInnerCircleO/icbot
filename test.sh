@@ -62,8 +62,12 @@ function main() {
     # Set cleanup trap
     trap cleanup EXIT SIGKILL SIGTERM
 
-    # Enable venv and install dependencies
-    enable_venv && install_dependencies
+    if [[ ${TRAVIS} != "true" ]]; then
+
+        # Enable venv and install dependencies
+        enable_venv && install_dependencies
+
+    fi
 
     # Run tests
     run_tests
