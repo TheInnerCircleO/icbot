@@ -49,7 +49,9 @@ function cleanup() {
     docker rmi -f theinnercircle/icbot:test
 
     # Deactivate virtual environment
-    [[ ${TRAVIS} == "true" ]] || deactivate
+    if [[ ${TRAVIS} != "true" ]]; then
+        deactivate
+    fi
 
 }
 
@@ -60,7 +62,9 @@ function main() {
     trap cleanup EXIT SIGKILL SIGTERM
 
     # Enable venv and install dependencies
-    [[ ${TRAVIS} != "true" ]] || (enable_venv && install_dependencies)
+    if [[ ${TRAVIS} != "true" ]]; then
+        enable_venv && install_dependencies
+    fi
 
     # Run tests
     run_tests
