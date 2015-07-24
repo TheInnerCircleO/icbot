@@ -29,9 +29,6 @@ function enable_venv() {
 
 function install_dependencies() {
 
-    # Install bot dependencies
-    pip3 install --upgrade -r ${SCRIPT_DIR}/requirements.txt -r ${SCRIPT_DIR}/hangupsbot/requirements.txt
-
     # Install test dependencies
     pip3 install --upgrade tox -r ${SCRIPT_DIR}/test-requirements.txt
 
