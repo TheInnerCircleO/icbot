@@ -4,7 +4,6 @@ python:
 
 # Docker testing
 sudo: 9000
-dist: trusty
 
 # Install dependencies
 install:
