@@ -10,6 +10,11 @@ SCRIPT_DIR="$(dirname $(readlink -f ${0}))"
 OUR_PLUGINS_DIR="${SCRIPT_DIR}/plugins"
 BOT_PLUGINS_DIR="${SCRIPT_DIR}/hangupsbot/hangupsbot/plugins"
 
+# Require python3
+if [[ ! -x "$(which python3)" ]]; then
+    echo "ERROR: python3 not found"; exit 1
+fi
+
 
 ## SCRIPT USAGE
 ########################################
