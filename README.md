@@ -3,6 +3,8 @@ icbot
 
 Chat bot for The Inner Circle Google Hangouts chat.
 
+[![Build Status](https://travis-ci.org/TheInnerCircleO/icbot.svg?branch=master)](https://travis-ci.org/TheInnerCircleO/icbot)
+[![](https://badge.imagelayers.io/theinnercircle/icbot:latest.svg)](https://imagelayers.io/?images=theinnercircle/icbot:latest 'Get your own badge on imagelayers.io')
 
 ### Cloning the bot + submodules
 
