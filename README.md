@@ -36,7 +36,7 @@ Install requirements:
     pip3 install --upgrade -r requirements.txt -r hangupsbot/requirements.txt
 
 
-Install testing requirements:
+Install testing requirements (optional):
 
     pip3 install --upgrade tox -r test-requirements.txt
 
@@ -85,6 +85,8 @@ The first time you run the bot you have to authenticate it manually.  To do
 this run the bot interactively and follow the instructions given:
 
     docker run -it --rm -v /local/config/dir:/srv/icbot/config theinnercircle/icbot
+
+**Running from Docker**
 
 Once authenticated you can use `Ctrl + C` to kill the running container and run
 a daemonized instance of the bot image:
