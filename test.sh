@@ -80,11 +80,15 @@ done
 
 function enable_venv() {
 
-    # Create VENV_DIR if non-existant
-    [[ -d "${VENV_DIR}" ]] || virtualenv -p $(which python3) ${VENV_DIR}
+    if [[ ${TRAVIS} != "true" ]]; then
 
-    # Load the virtual environment
-    source ${VENV_DIR}/bin/activate
+        # Create VENV_DIR if non-existant
+        [[ -d "${VENV_DIR}" ]] || virtualenv -p $(which python3) ${VENV_DIR}
+
+        # Load the virtual environment
+        source ${VENV_DIR}/bin/activate
+
+    fi
 
 }
 
@@ -135,9 +139,7 @@ function main() {
     trap cleanup SIGKILL SIGTERM
 
     # Enable venv and install dependencies
-    if [[ ${TRAVIS} != "true" ]]; then
-        enable_venv && install_dependencies
-    fi
+    enable_venv && install_dependencies
 
     # Run tests
     tox && docker_build
