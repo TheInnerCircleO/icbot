@@ -3,7 +3,9 @@ python:
     - "3.4"
 
 # Docker testing
-sudo: 9000
+sudo: required
+services:
+    - docker
 
 # Install dependencies
 install:
