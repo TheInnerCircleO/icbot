@@ -1,6 +1,14 @@
 FROM ubuntu:14.04
 MAINTAINER The Inner Circle <https://github.com/TheInnerCircleO>
 
+## Set env vars
+ENV LANGUAGE en_US
+ENV LANG en_US.UTF-8
+ENV LC_AL en_US.UTF-8
+
+# Reconfigure locales
+RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
+
 ## Set directory vars
 ENV BOT_DIR /srv/icbot
 
