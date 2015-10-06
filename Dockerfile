@@ -1,21 +1,12 @@
-FROM ubuntu:14.04
+FROM alpine:3.2
 MAINTAINER The Inner Circle <https://github.com/TheInnerCircleO>
-
-## Set env vars
-ENV LANGUAGE en_US
-ENV LANG en_US.UTF-8
-ENV LC_AL en_US.UTF-8
-
-# Reconfigure locales
-RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
 
 ## Set directory vars
 ENV BOT_DIR /srv/icbot
 
 ## Upgrade packages and install dependencies
-RUN apt-get update && apt-get -y upgrade \
-    && apt-get -y install git python3 python3-pip \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk add --update bash git python3 py-pip \
+    && rm -rf /var/cache/apk/*
 
 ## Copy files to image
 COPY ./ ${BOT_DIR}/

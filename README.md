@@ -91,7 +91,7 @@ this run the bot interactively and follow the instructions given:
 Once authenticated you can use `Ctrl + C` to kill the running container and run
 a daemonized instance of the bot image:
 
-    docker run -dt -v /local/config/dir:/srv/icbot/config --restart=always --name icbot theinnercircle/icbot
+    docker daemon -t -v /local/config/dir:/srv/icbot/config --restart=always --name icbot theinnercircle/icbot
 
 -----
 
