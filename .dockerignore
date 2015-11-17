@@ -1,5 +1,7 @@
 .git
 .gitignore
 .travis.yml
+.tox
 .venv
+.venv-test
 README.md
